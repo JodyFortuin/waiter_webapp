@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  -  12
+
+env:
+  - DATABASE_URL=postgresql://postgres@localhost:5432/watierdb
+
+before_script:
+  - psql -c 'create database watierdb;' -U postgres
+  - psql -U postgres -d watierdb -a -f reg.sql
+
+services:
+  - postgresql

@@ -8,7 +8,7 @@ const waiterFactory = require('./waiter');
 let app = express();
 
 const connectionString =
-  process.env.DATABASE_URL || "postgresql://codex:pg123@localhost:5432/waiter_webapp";
+  process.env.DATABASE_URL || "postgresql://codex:pg123@localhost:5432/waiterdb";
 
 const pg = require("pg");
 
@@ -17,7 +17,7 @@ const pool = new Pool({
   connectionString,
 });
 
-const waiter = waiterFactory(pool);
+const waiterFact = waiterFactory(pool);
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
@@ -45,19 +45,22 @@ app.get('/', async function (req, res) {
     });
 });
 
-app.post('/waiters/:username', async function (req, res) {
-  const name = req.body.nameElem;
-
-
-    res.render('index', {
-
-    });
-});
-
 app.get('/waiters/:username', async function (req, res) {
 
-    res.render('greeted', {
+  res.render('index', {
 
+  });
+});
+
+app.post('/waiters/:username', async function (req, res) {
+  const waiterName = req.body.nameItem;
+  const addWaiter = await waiterFact.addWaiter(waiterName);
+
+  const name = [req.body.nameItem];
+  const addDays = await waiterFact.addDays(name);
+
+    res.render('index', {
+         
     });
 });
 
