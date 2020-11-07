@@ -1,3 +1,17 @@
 .container{
     text-align: centre;
+    padding-top: 3em;
 }
+
+.checks{
+    display:flex;
+}
+
+.custom-control{
+    padding:0.5em
+}
+
+.custom-centered{
+    margin:0 auto;
+    width:300px;
+   }

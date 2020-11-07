@@ -8,7 +8,7 @@ const waiterFactory = require('./waiter');
 let app = express();
 
 const connectionString =
-  process.env.DATABASE_URL || "postgresql://codex:pg123@localhost:5432/waiterdb";
+  process.env.DATABASE_URL || "postgresql://jojothepompiman:pg123@localhost:5432/waiterdb";
 
 const pg = require("pg");
 
@@ -53,11 +53,17 @@ app.get('/waiters/:username', async function (req, res) {
 });
 
 app.post('/waiters/:username', async function (req, res) {
+  const day = req.body.checkbox;
+console.log(day)
   const waiterName = req.body.nameItem;
+  if(waiterName){
   const addWaiter = await waiterFact.addWaiter(waiterName);
+  }
 
   const name = [req.body.nameItem];
-  const addDays = await waiterFact.addDays(name);
+  if(waiterName){
+  const addDays = await waiterFact.addDays(name, day);
+  }
 
     res.render('index', {
          

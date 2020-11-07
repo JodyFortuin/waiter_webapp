@@ -1,17 +1,43 @@
 <div class="container">
-<div><p>Waiter booking</p></div>
 
-<form action="/waiters/:username" method="POST">
-<input type="text" name="nameItem" placeholder="enter name" class="nameElem">
+<form action="/waiters/:username" method="POST" class="custom-centered">
 
-<div class="checkbox">
-<input type="checkbox" value="Monday" valueone="1">
-<input type="checkbox" value="Tuesday" valuetwo="1">
-<input type="checkbox" value="Wednesday" valuethree="1">
-<input type="checkbox" value="Thursday" valuefour="1">
-<input type="checkbox" value="Friday" valuefive="1">
+<div><p class="text-primary">Waiter booking</p></div>
+
+<div class="form-row">
+<div class="col-md-12 mb-3">
+<input type="text" name="nameItem" placeholder="enter name" class="form-control" id="validationTooltip03">
+     </div>
+     </div>
+
+<div class="checks" name="checkbox" id="checkbox">
+<div class="custom-control custom-checkbox">
+  <input type="checkbox" class="custom-control-input" id="customCheck1" value="1" name="checkbox">
+  <label class="custom-control-label" for="customCheck1"><p class="text-info">Monday</p></label>
 </div>
 
-<input type="submit" value="submit" name="sub">
+<div class="custom-control custom-checkbox">
+  <input type="checkbox" class="custom-control-input" id="customCheck2" value="2" name="checkbox">
+  <label class="custom-control-label" for="customCheck2"><p class="text-info">Tuesday</p></label>
+</div>
+
+<div class="custom-control custom-checkbox">
+  <input type="checkbox" class="custom-control-input" id="customCheck3" value="3" name="checkbox">
+  <label class="custom-control-label" for="customCheck3"><p class="text-info">Wednesday</p></label>
+</div>
+
+<div class="custom-control custom-checkbox">
+  <input type="checkbox" class="custom-control-input" id="customCheck4" value="4" name="checkbox">
+  <label class="custom-control-label" for="customCheck4"><p class="text-info">Thursday</p></label>
+</div>
+
+<div class="custom-control custom-checkbox">
+  <input type="checkbox" class="custom-control-input" id="customCheck5" value="5" name="checkbox">
+  <label class="custom-control-label" for="customCheck5"><p class="text-info">Friday</p></label>
+</div>
+</div>
+
+<button type="submit" name="sub" class="btn btn-primary">Submit
+</button>
 </form>
 </div>
