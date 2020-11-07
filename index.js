@@ -8,7 +8,7 @@ const waiterFactory = require('./waiter');
 let app = express();
 
 const connectionString =
-  process.env.DATABASE_URL || "postgresql://jojothepompiman:pg123@localhost:5432/waiterdb";
+  process.env.DATABASE_URL || "postgresql://codex:pg123@localhost:5432/waiterdb";
 
 const pg = require("pg");
 
