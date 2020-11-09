@@ -3,13 +3,15 @@ create table days(
     Tuesday text[],
     Wednesday text[],
     Thursday text[],
-    Friday text[]
+    Friday text[],
+    Saturday text[],
+    Sunday text[]
 );
 
 create table waiters (
 	id serial not null primary key,
         waiter text
-); 
+);
 
 /*insert into days(Monday) values('{"Jo", "Jack"}');
 update users set greet_count = greet_count + 1 where name = $1

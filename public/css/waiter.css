@@ -3,15 +3,11 @@
     padding-top: 3em;
 }
 
-.checks{
-    display:flex;
-}
-
 .custom-control{
-    padding:0.5em
+    padding:0.2em
 }
 
 .custom-centered{
     margin:0 auto;
     width:300px;
-   }
+}
