@@ -13,14 +13,14 @@ module.exports = function waiterFactory(pool) {
 
         await pool.query(INSERT_QUERY, [name]);
         var select = await pool.query(SELECT_QUERY, [name]);
-        console.log(select.rows)
+        // console.log(select.rows)
         //if(select.rows === 0){
         var newArray = select.rows.push()
-        console.log(newArray)
+        // console.log(newArray)
 
           
         } 
-        console.log(name)
+        // console.log(name)
       } 
 
       async function getWaiter(name){
