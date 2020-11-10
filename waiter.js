@@ -17,8 +17,8 @@ module.exports = function waiterFactory(pool) {
      //var selectIndex = select.rows.rows[0].id;
      //var arr = [];
        // var newArray = arr.push()
-        console.log(selectIndex)
-         console.log(newArray)
+        //console.log(selectIndex)
+         //console.log(newArray)
           
         }
         // console.log(name)
