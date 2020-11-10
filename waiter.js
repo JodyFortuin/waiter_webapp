@@ -19,24 +19,33 @@ module.exports = function waiterFactory(pool) {
         // console.log(newArray)
 
           
-        } 
+        }
         // console.log(name)
       } 
 
-      async function getWaiter(name){
-        const SELECT_QUERY = await pool.query('select Monday from days where Monday = $1', [name]);
+      async function getWaiter(){
+        const SELECT_QUERY = await pool.query('select waiter from waiters');
         return SELECT_QUERY.rows;
       }
 
-    async function noName(){
-      if (name === "")
-      return "no name"
+      async function getWaiterFromDays(){
+        const SELECT_QUERY = await pool.query('select Monday from days');
+        return SELECT_QUERY.rows;
+      }
+
+    async function noName(name){
+      if (name === ""){
+        return true
+      } else {
+        return false
+      }
     }
 
   return {
       addWaiter,
       addDays,
       getWaiter,
+      getWaiterFromDays,
       noName
   };
 };
