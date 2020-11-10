@@ -10,14 +10,15 @@ module.exports = function waiterFactory(pool) {
       if(day === "1"){
         const INSERT_QUERY = 'insert into days(Monday) values($1)';
         const SELECT_QUERY = 'select Monday from days where Monday = $1';
-
+        
         await pool.query(INSERT_QUERY, [name]);
         var select = await pool.query(SELECT_QUERY, [name]);
-        // console.log(select.rows)
-        //if(select.rows === 0){
-        var newArray = select.rows.push()
-        // console.log(newArray)
-
+     //    console.log(select.rows)
+     var selectIndex = select.rows.rows[0].id;
+     var arr = [];
+        var newArray = arr.push()
+        console.log(selectIndex)
+         console.log(newArray)
           
         }
         // console.log(name)
