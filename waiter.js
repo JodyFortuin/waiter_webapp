@@ -14,9 +14,9 @@ module.exports = function waiterFactory(pool) {
         await pool.query(INSERT_QUERY, [name]);
         var select = await pool.query(SELECT_QUERY, [name]);
      //    console.log(select.rows)
-     var selectIndex = select.rows.rows[0].id;
-     var arr = [];
-        var newArray = arr.push()
+     //var selectIndex = select.rows.rows[0].id;
+     //var arr = [];
+       // var newArray = arr.push()
         console.log(selectIndex)
          console.log(newArray)
           
