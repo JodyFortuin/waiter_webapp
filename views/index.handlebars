@@ -10,6 +10,12 @@
      </div>
      </div>
 
+ {{#if messages.info}}
+  <div class="entry text-danger">
+    <p> {{messages.info}}</p>
+  </div>
+  {{/if}}
+
 <div class="checks" name="checkbox" id="checkbox">
 <div class="custom-control custom-checkbox">
   <input type="checkbox" class="custom-control-input" id="customCheck1" value="1" name="checkbox">

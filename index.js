@@ -65,6 +65,12 @@ console.log(day)
   const addDays = await waiterFact.addDays(name, day);
   }
 
+  const noName = await waiterFact.noName(waiterName);
+
+  if (noName === true) {
+    req.flash("info", "No Registration number entered");
+  }
+
     res.render('index', {
          
     });
