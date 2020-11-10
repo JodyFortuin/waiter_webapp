@@ -68,7 +68,7 @@ console.log(day)
   const noName = await waiterFact.noName(waiterName);
 
   if (noName === true) {
-    req.flash("info", "No Registration number entered");
+    req.flash("info", "No name entered");
   }
 
     res.render('index', {
