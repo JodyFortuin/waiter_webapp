@@ -20,14 +20,14 @@ describe("Registration Database Unit Test",async function () {
     let waiterFactory = waiterFact(pool);
     const INSERT_QUERY = await waiterFactory.addWaiter("Jack");
  
-    assert.deepEqual([{"waiter": "Jack"}], await waiterFactory.getWaiter());
+    assert.deepEqual([{"waiter": "Jack"}], await waiterFactory.getWaiters());
 
 });
 
   it("should be able to insert a name in the Days table", async function () {
 
   let waiterFactory = waiterFact(pool);
-  const INSERT_QUERY = await waiterFactory.addDays(["John"], "1");
+  const INSERT_QUERY = await waiterFactory.addId(["John"], "1");
 
   assert.deepEqual([{"monday": ["John"]}], await waiterFactory.getWaiterFromDays());
 
