@@ -10,18 +10,18 @@ module.exports = function waiterFactory(pool) {
      // if(day.includes("1")){
      //   const SELECT_WAITER = await pool.query ('select waiter from waiters where waiter=$1', [name]);
 
-      const SELECT_ID = 'select id from waiters where waiter=$1';
-      let waiterid = await pool.query(SELECT_ID, [name]);
+      // const SELECT_ID = 'select id from waiters where waiter=$1';
+      let waiterid = await pool.query('select id from waiters where waiter=$1', [name]);
 
       if(waiterid.rows.length === 0){
-        const SELECT_ID = 'select id from waiters where waiter=$1';
-       waiterid = await pool.query(SELECT_ID, [name]);
+        // const SELECT_ID = 'select id from waiters where waiter=$1';
+       waiterid = await pool.query('select id from waiters where waiter=$1', [name]);
       // var wid = waiterid.rows[0].id;
       }
       for (const shift of day) {
        // if(day == shift){
-         const SELECT_DAY = 'select id from days where day=$1';
-         const dayid = await pool.query(SELECT_DAY, [shift]);
+        //  const SELECT_DAY = 'select id from days where day=$1';
+         const dayid = await pool.query('select id from days where day=$1', [shift]);
          console.log(dayid.rows[0].id);
                const INSERT_WAITER = await pool.query ('insert into shift(waiter_id, dayid) values($1,$2)', [waiterid.rows[0].id, dayid.rows[0].id]);
 
