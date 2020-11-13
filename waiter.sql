@@ -1,41 +1,25 @@
 create table days(
-	Monday text[],
-    Tuesday text[],
-    Wednesday text[],
-    Thursday text[],
-    Friday text[],
-    Saturday text[],
-    Sunday text[]
+	id serial not null primary key,
+    day text
 );
 
 create table waiters (
 	id serial not null primary key,
-        waiter text
+    waiter text
 );
 
-/*insert into days(Monday) values('{"Jo", "Jack"}');
-update users set greet_count = greet_count + 1 where name = $1
-update days set Monday values(+$1);*/
-insert into days(Monday) values($1)
-
-/*
-create table days(
-	Monday text[],
-    Tuesday text[],
-    Wednesday text[],
-    Thursday text[],
-    Friday text[],
-    Saturday text[],
-    Sunday text[]
-);
-
-create table waiters (
-	id serial not null primary key,
-        waiter text
-);
-
-create table ids (
+create table shift (
     id serial not null primary key,
-    waiterid serial not null primary key,
-    dayid serial not null primary key
-);*/
+    waiter_id int,
+    dayid int,
+    foreign key (waiter_id) references waiters(id),
+    foreign key (dayid) references days(id)
+);
+
+insert into days(day) values('Monday');
+insert into days(day) values('Tuesday');
+insert into days(day) values('Wednesday');
+insert into days(day) values('Thursday');
+insert into days(day) values('Friday');
+insert into days(day) values('Saturday');
+insert into days(day) values('Sunday');

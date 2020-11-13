@@ -5,32 +5,19 @@ module.exports = function waiterFactory(pool) {
       await pool.query(INSERT_WAITER, [waiterName]);
     }
 
-    async function addId(name, day){
+    async function addID(name, day){
       
-     // if(day.includes("1")){
-     //   const SELECT_WAITER = await pool.query ('select waiter from waiters where waiter=$1', [name]);
+      if(day.includes("1")){
+        const SELECT_WAITER = await pool.query ('select waiter from waiters where waiter=$1', [name]);
 
-      const SELECT_ID = 'select id from waiters where waiter=$1';
-      let waiterid = await pool.query(SELECT_ID, [name]);
-
-      if(waiterid.rows.length === 0){
-        const SELECT_ID = 'select id from waiters where waiter=$1';
-       waiterid = await pool.query(SELECT_ID, [name]);
-      // var wid = waiterid.rows[0].id;
-      }
-      for (const shift of day) {
-       // if(day == shift){
-         const SELECT_DAY = 'select id from days where day=$1';
-         const dayid = await pool.query(SELECT_DAY, [shift]);
-         console.log(dayid.rows[0].id);
-               const INSERT_WAITER = await pool.query ('insert into shift(waiter_id, dayid) values($1,$2)', [waiterid.rows[0].id, dayid.rows[0].id]);
-
-        //  var did = dayid.rows[0].id;
-        //}
-      }
-    //}
-      /*
-      const INSERT_WAITER = await pool.query ('insert into shift(waiter_id, dayid) values($1,$2)', [wid, did]);
+      const SELECT_ID = await pool.query ('select waiter from waiters where waiter=$1', [name]);
+      const waiterid = await pool.query(SELECT_ID, []);
+      var wid = waiterid.rows[0].id;
+     
+      //  const SELECT_DAY = `select id from days where day='Monday'`;
+        //const dayid = await pool.query(SELECT_DAY);
+        //var did = dayid.rows[0].id;
+        //const INSERT_WAITER = await pool.query ('insert into shift(waiter_id, dayid) values($1,$2)'), [wid];
         } if(day.includes("3")){ 
         const SELECT_WAITER = 'select id from waiters where waiter=$1';
         const waiterid2 = await pool.query(SELECT_WAITER, [name]);
@@ -67,7 +54,7 @@ module.exports = function waiterFactory(pool) {
         var wid2 = waiterid2.rows[0].id;
         
         const INSERT_WAITER = await pool.query ('insert into shift(waiterid, dayid) values($1,$2)', [wid2, 7]);
-      }*/
+      }
     } 
     
     async function get(id){
@@ -113,7 +100,7 @@ module.exports = function waiterFactory(pool) {
 
   return {
       addWaiter,
-      addId,
+      addID,
       getWaiters,
       getDays,
       noName,

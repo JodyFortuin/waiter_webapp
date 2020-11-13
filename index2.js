@@ -60,7 +60,7 @@ app.post('/waiters/:username', async function (req, res) {
   }
 
   if(name && !day == ""){
-  const addId = await waiterFact.addId(name, day);
+  const addID = await waiterFact.addID(name, day);
   }
 
   const noName = await waiterFact.noName(name);

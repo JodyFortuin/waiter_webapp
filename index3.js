@@ -56,11 +56,11 @@ app.post('/waiters/:username', async function (req, res) {
   const day = req.body.checkbox;
   const name = req.body.nameItem;
   if(name){
-  const addWaiter = await waiterFact.addWaiter(name);
+  const addWaiter = await waiterFact.getUserId(name);
   }
 
   if(name && !day == ""){
-  const addId = await waiterFact.addId(name, day);
+  const addID = await waiterFact.addShifts(name, day);
   }
 
   const noName = await waiterFact.noName(name);
