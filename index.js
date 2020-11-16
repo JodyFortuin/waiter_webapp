@@ -86,7 +86,11 @@ app.get('/days', async function (req, res) {
     const count = await waiterFact.count();
     const color = await waiterFact.color();
 */
+// const day = req.body.checkbox;
+// const get = await waiterFact.get(day)
+// console.log(get)
     res.render('admin', {
+      // display: get
      /*  display,
        count,
        color*/

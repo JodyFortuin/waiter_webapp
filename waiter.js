@@ -18,15 +18,25 @@ module.exports = function waiterFactory(pool) {
     return waiterId.rows[0]["id"];
   }
 
-  async function get(id) {
-    const selectName = await pool.query("select waiter_id from shift where dayid=$1",[id]);
-    return selectName.rows;
+  async function get(days) {
+    
+    for(const id of days){
+   // const selectName = await pool.query("select waiter_id from shift where dayid=$1",[id]);
+   const select = await pool.query(`select waiters.waiter
+    from waiters
+    inner join shift
+    on waiters.id = shift.waiter_id
+    inner join days
+    on shift.dayid = days.id where dayid=$1`,[id]);
+    console.log(select.rows)
+    return select.rows;
+    }
   }
 
   async function count(shift) {
     for (const id of shift){
       const selectCount = await pool.query("select count(*) from shift where dayid=$1",[id]);
-      console.log(selectCount.rows)
+      //console.log(selectCount.rows)
       return selectCount.rows
     }
   }
