@@ -1,44 +1,47 @@
 let assert = require("assert");
 let waiterFact = require("../waiter");
 
-describe("Registration Database Unit Test",async function () {
-
+describe("Registration Database Unit Test", async function () {
   const pg = require("pg");
   const Pool = pg.Pool;
-  const connectionString = process.env.DATABASE_URL || 'postgresql://codex:pg123@localhost:5432/waiterdb';
+  const connectionString =
+    process.env.DATABASE_URL ||
+    "postgresql://codex:pg123@localhost:5432/waiterdb";
   const pool = new Pool({
-    connectionString
+    connectionString,
   });
 
   beforeEach(async function () {
-    await pool.query("delete from days");
     await pool.query("delete from waiters");
   });
 
-  it("should be able to insert a name in the Waiters table", async function () {
+  describe("addWaiter()", async function () {
+    it("should be able to insert a name in the Waiters table", async function () {
+      let waiterFactory = waiterFact(pool);
+      const INSERT_QUERY = await waiterFactory.addWaiter("Jack");
 
-    let waiterFactory = waiterFact(pool);
-    const INSERT_QUERY = await waiterFactory.addWaiter("Jack");
- 
-    assert.deepEqual([{"waiter": "Jack"}], await waiterFactory.getWaiters());
+      assert.deepEqual([{ waiter: "Jack" }], await waiterFactory.getWaiters());
+    });
+  });
 
-});
+  describe("noName()", async function () {
+    it("should be able to check if a name is entered", async function () {
+      let waiterFactory = waiterFact(pool);
+      const INSERT_QUERY = await waiterFactory.addWaiter();
 
-  it("should be able to insert a name in the Days table", async function () {
+      assert.deepEqual(false, await waiterFactory.noName());
+    });
+  });
 
-  let waiterFactory = waiterFact(pool);
-  const INSERT_QUERY = await waiterFactory.addId(["John"], "1");
+  describe("addShiftsForWaiter()", async function () {
+    it("should be able to insert id of waiter and id of day into shift table", async function () {
+      let waiterFactory = waiterFact(pool);
 
-  assert.deepEqual([{"monday": ["John"]}], await waiterFactory.getWaiterFromDays());
+      await waiterFactory.addWaiter("Jack");
 
-});
+      await waiterFactory.addShiftsForWaiter("Jack", [1, 2]);
 
-it("should be able to check if a name is entered", async function () {
-
-  let waiterFactory = waiterFact(pool);
-  const INSERT_QUERY = await waiterFactory.addWaiter();
-
-  assert.deepEqual(false, await waiterFactory.noName());
-
+      // assert.deepEqual(false, await waiterFactory.noName());
+    });
   });
 });

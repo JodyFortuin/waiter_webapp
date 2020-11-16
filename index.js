@@ -59,9 +59,9 @@ app.post('/waiters/:username', async function (req, res) {
   const addWaiter = await waiterFact.addWaiter(name);
   }
 
-  if(name && !day == ""){
-  const addId = await waiterFact.addId(name, day);
-  }
+  //if(name && !day == ""){
+  const addId = await waiterFact.addShiftsForWaiter(name, day);
+  //}
 
   const noName = await waiterFact.noName(name);
 
@@ -73,21 +73,23 @@ app.post('/waiters/:username', async function (req, res) {
     req.flash("check", "No days selected");
   }
 
+  const count = waiterFact.count(day);
+
     res.render('index', {
          
     });
 });
 
 app.get('/days', async function (req, res) {
-
+/*
     const display = await waiterFact.get();
     const count = await waiterFact.count();
     const color = await waiterFact.color();
-
+*/
     res.render('admin', {
-       display,
+     /*  display,
        count,
-       color
+       color*/
     });
 });
 
