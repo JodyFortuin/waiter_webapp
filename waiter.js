@@ -1,5 +1,19 @@
 module.exports = function waiterFactory(pool) {
 
+
+  async function getSchedule() {
+    const sql = `select * from waiters
+    inner join shift
+    on waiters.id = shift.waiter_id
+    inner join days
+    on shift.dayid = days.id`;
+    
+    const result = await pool.query(sql);
+
+    return result.rows;
+  }
+
+
   async function addWaiter(waiterName) {
     const INSERT_WAITER = await pool.query("insert into waiters(waiter) values($1)", [waiterName]); 
   }
@@ -8,21 +22,22 @@ module.exports = function waiterFactory(pool) {
 
     let wid = await getWaiterId(name);
     
-    for (const shift of day) {
+    for (const shift in day) {
       await pool.query("insert into shift(waiter_id, dayid) values($1,$2)", [wid, shift]);
     }
   }
 
   async function getWaiterId(name){
+    if(name){
     const waiterId = await pool.query("select id from waiters where waiter=$1",[name]);
     return waiterId.rows[0]["id"];
   }
+}
 
   async function get(days) {
     
-    for(const id of days){
-   // const selectName = await pool.query("select waiter_id from shift where dayid=$1",[id]);
-   const select = await pool.query(`select waiters.waiter
+    for(const id in days){
+   const select = await pool.query(`select *
     from waiters
     inner join shift
     on waiters.id = shift.waiter_id
@@ -34,22 +49,21 @@ module.exports = function waiterFactory(pool) {
   }
 
   async function count(shift) {
-    for (const id of shift){
+    for (const id in shift){
       const selectCount = await pool.query("select count(*) from shift where dayid=$1",[id]);
       //console.log(selectCount.rows)
       return selectCount.rows
     }
   }
 
-  async function color() {
-    var count2 = count();
-    if (count2 < 3) {
+   function color(count) {
+    if (count < 3) {
       return "bg-danger";
     }
-    if ((count2 = 3)) {
+    if ((count = 3)) {
       return "bg-green";
     }
-    if (count2 > 3) {
+    if (count > 3) {
       return "bg-warning";
     }
   }
@@ -72,6 +86,25 @@ module.exports = function waiterFactory(pool) {
     }
   }
 
+  async function joinShiftAndWeekdays() {
+    const weekdays = await getDays();
+    const shifts = await getSchedule();
+
+    weekdays.forEach(function(days) {
+      days.waiters = [];
+      shifts.forEach((waiter) => {
+        if(waiter.day === days.day) {
+            days.waiters.push(waiter)
+        }
+
+        days.color = color(days.waiters.length)
+        
+      })
+    })
+
+    return weekdays;
+  }
+
   return {
     addWaiter,
     addShiftsForWaiter,
@@ -81,7 +114,8 @@ module.exports = function waiterFactory(pool) {
     get,
     count,
     color,
-    getWaiterId
+    getWaiterId,
+    joinShiftAndWeekdays
   };
 };
 
