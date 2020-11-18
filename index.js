@@ -45,14 +45,14 @@ app.get('/', async function (req, res) {
     });
 });
 
-app.get('/waiters/:username', async function (req, res) {
+app.get('/waiters/:nameItem', async function (req, res) {
 
   res.render('index', {
 
   });
 });
 
-app.post('/waiters/:username', async function (req, res) {
+app.post('/waiters/:nameItem', async function (req, res) {
   const day = req.body.checkbox;
   const name = req.body.nameItem;
   //req.session.user = name;

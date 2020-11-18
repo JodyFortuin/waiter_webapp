@@ -12,6 +12,7 @@ describe("Registration Database Unit Test", async function () {
   });
 
   beforeEach(async function () {
+    await pool.query("delete from shift");
     await pool.query("delete from waiters");
   });
 
@@ -42,6 +43,51 @@ describe("Registration Database Unit Test", async function () {
       await waiterFactory.addShiftsForWaiter("Jack", [1, 2]);
 
       // assert.deepEqual(false, await waiterFactory.noName());
+    });
+  });
+
+  describe("color()", async function () {
+    it("should change column name red when below 3", async function () {
+      let waiterFactory = waiterFact(pool);
+      
+      await waiterFactory.addWaiter("John");
+      await waiterFactory.addWaiter("Jack");
+      await waiterFactory.addShiftsForWaiter("John", [1]);
+      await waiterFactory.addShiftsForWaiter("Jack", [1]);
+
+      assert.deepEqual("bg-danger", await waiterFactory.color(2));
+    });
+  });
+
+  describe("color()", async function () {
+    it("should change column name green when = 3", async function () {
+      let waiterFactory = waiterFact(pool);
+
+      await waiterFactory.addWaiter("Jack");
+      await waiterFactory.addWaiter("John");
+      await waiterFactory.addWaiter("James");
+      await waiterFactory.addShiftsForWaiter("Jack", [1]);
+      await waiterFactory.addShiftsForWaiter("John", [1]);
+      await waiterFactory.addShiftsForWaiter("James", [1]);
+
+      assert.deepEqual("bg-green", await waiterFactory.color(3));
+    });
+  });
+
+  describe("color()", async function () {
+    it("should change column name orange when above 3", async function () {
+      let waiterFactory = waiterFact(pool);
+
+      await waiterFactory.addWaiter("Jack");
+      await waiterFactory.addWaiter("John");
+      await waiterFactory.addWaiter("James");
+      await waiterFactory.addWaiter("Jim");
+      await waiterFactory.addShiftsForWaiter("Jack", [1]);
+      await waiterFactory.addShiftsForWaiter("John", [1]);
+      await waiterFactory.addShiftsForWaiter("James", [1]);
+      await waiterFactory.addShiftsForWaiter("Jim", [1]);
+
+      assert.deepEqual("bg-warning", await waiterFactory.color(4));
     });
   });
 });

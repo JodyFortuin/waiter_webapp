@@ -30,10 +30,10 @@ module.exports = function waiterFactory(pool) {
 }
 
   async function getWaiterId(name){
-    if(name){
+   // if(name){
     const waiterId = await pool.query("select id from waiters where waiter=$1",[name]);
     return waiterId.rows[0]["id"];
-  }
+  //}
 }
 
   async function get(days) {
@@ -62,12 +62,13 @@ module.exports = function waiterFactory(pool) {
     if (count < 3) {
       return "bg-danger";
     }
-    if ((count = 3)) {
-      return "bg-green";
-    }
     if (count > 3) {
       return "bg-warning";
     }
+    if ((count = 3)) {
+      return "bg-green";
+    }
+   
   }
 
   async function getWaiters() {

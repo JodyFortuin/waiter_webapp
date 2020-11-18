@@ -12,6 +12,25 @@
     width:300px;
 }
 
+.btn{
+  display:flex
+}
+
+.bg-warning {
+  background-color: orange;
+  font-weight: bold;
+}
+
+.bg-danger {
+  background-color: crimson;
+  font-weight: bold;
+}
+
+.bg-green{
+    background-color:green;
+    font-weight: bold;
+} 
+
 /*.square{
   background-color: green;
   border-radius: 2em;
