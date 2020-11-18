@@ -22,10 +22,12 @@ module.exports = function waiterFactory(pool) {
 
     let wid = await getWaiterId(name);
     
-    for (const shift in day) {
+    if(day){
+    for (const shift of day) {
       await pool.query("insert into shift(waiter_id, dayid) values($1,$2)", [wid, shift]);
     }
   }
+}
 
   async function getWaiterId(name){
     if(name){
@@ -78,7 +80,7 @@ module.exports = function waiterFactory(pool) {
     return SELECT_QUERY.rows;
   }
 
-  async function noName(name) {
+  function noName(name) {
     if (name === "") {
       return true;
     } else {
@@ -86,7 +88,7 @@ module.exports = function waiterFactory(pool) {
     }
   }
 
-  async function joinShiftAndWeekdays() {
+  async function joinShift() {
     const weekdays = await getDays();
     const shifts = await getSchedule();
 
@@ -105,6 +107,11 @@ module.exports = function waiterFactory(pool) {
     return weekdays;
   }
 
+  async function reset(){
+    const DELETE_SHIFT = await pool.query("delete from shift");
+    return true;
+  }
+
   return {
     addWaiter,
     addShiftsForWaiter,
@@ -115,7 +122,8 @@ module.exports = function waiterFactory(pool) {
     count,
     color,
     getWaiterId,
-    joinShiftAndWeekdays
+    joinShift,
+    reset
   };
 };
 

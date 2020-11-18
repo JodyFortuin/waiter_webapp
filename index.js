@@ -55,6 +55,7 @@ app.get('/waiters/:username', async function (req, res) {
 app.post('/waiters/:username', async function (req, res) {
   const day = req.body.checkbox;
   const name = req.body.nameItem;
+  //req.session.user = name;
   if(name){
   const addWaiter = await waiterFact.addWaiter(name);
   }
@@ -81,23 +82,30 @@ app.post('/waiters/:username', async function (req, res) {
 });
 
 app.get('/days', async function (req, res) {
-/*
-    const display = await waiterFact.get();
-    const count = await waiterFact.count();
-    const color = await waiterFact.color();
-*/
+
  const day = req.body.checkbox;
- const get = await waiterFact.joinShiftAndWeekdays();
+ const get = await waiterFact.joinShift();
 
  console.log({get});
 
     res.render('admin', {
        display: get
-     /*  display,
-       count,
-       color*/
     });
 });
+
+app.post('/reset', async function (req, res) {
+
+  const reset = await waiterFact.reset();
+  const get = await waiterFact.joinShift();
+
+  if (reset){
+    req.flash("reset", "Succesfully cleared database");
+  }
+ 
+     res.render('admin', {
+       display: get
+     });
+ });
 
 
 let PORT = process.env.PORT || 3090;

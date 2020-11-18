@@ -12,6 +12,24 @@
     width:300px;
 }
 
+/*.square{
+  background-color: green;
+  border-radius: 2em;
+  width: 2em;
+}
+
+.square2{
+  background-color: red;
+  border-radius: 2em;
+  width: 2em;
+}
+
+.square3{
+  background-color:orange;
+  border-radius: 2em;
+  width: 2em;
+}*/
+
 .entry{
     font-size: 20px;
     }
@@ -22,19 +40,4 @@
         -moz-background-size: cover;
         background-size: cover;
         -o-background-size: cover;
-      }
-
-      .bg-warning {
-        color: orange;
-        font-weight: bold;
-      }
-      
-      .bg-danger {
-        color: crimson;
-        font-weight: bold;
-      }
-
-      .bg-green{
-          color:green;
-          font-weight: bold;
       }
