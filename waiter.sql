@@ -1,4 +1,4 @@
-drop table if exists shift, days, waiters; 
+drop table if exists shift, days, waiters;
 
 create table days(
 	id serial not null primary key,

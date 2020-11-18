@@ -23,6 +23,12 @@
   </div>
   {{/if}}
 
+  {{#if messages.shift}}
+  <div class="entry text-success">
+    <p> {{messages.shift}}</p>
+  </div>
+  {{/if}}
+
 <div class="checks" name="checkbox" id="checkbox">
 <div class="custom-control custom-checkbox">
   <input type="checkbox" class="custom-control-input" id="customCheck1" value="1" name="checkbox">

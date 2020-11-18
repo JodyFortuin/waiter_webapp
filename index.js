@@ -60,21 +60,22 @@ app.post('/waiters/:nameItem', async function (req, res) {
   const addWaiter = await waiterFact.addWaiter(name);
   }
 
-  //if(name && !day == ""){
+  if(name && !day == ""){
   const addId = await waiterFact.addShiftsForWaiter(name, day);
-  //}
+  req.flash("shift", "Successfully added shifts");
+  }
 
   const noName = await waiterFact.noName(name);
 
-  if (noName === true) {
+  if(noName === true && !day){
+    req.flash("info", "Enter name and day")
+  } else if (noName === true) {
     req.flash("info", "No name entered");
+  } else if (!day) {
+    req.flash("info", "No days selected");
   }
-
-  if (!day) {
-    req.flash("check", "No days selected");
-  }
-
-  const count = waiterFact.count(day);
+    
+ // const count = waiterFact.count(day);
 
     res.render('index', {
          

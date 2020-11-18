@@ -2,13 +2,13 @@ module.exports = function waiterFactory(pool) {
 
 
   async function getSchedule() {
-    const sql = `select * from waiters
+    const SELECT_WAITERS = `select * from waiters
     inner join shift
     on waiters.id = shift.waiter_id
     inner join days
     on shift.dayid = days.id`;
     
-    const result = await pool.query(sql);
+    const result = await pool.query(SELECT_WAITERS);
 
     return result.rows;
   }
@@ -30,10 +30,10 @@ module.exports = function waiterFactory(pool) {
 }
 
   async function getWaiterId(name){
-   // if(name){
+    if(name){
     const waiterId = await pool.query("select id from waiters where waiter=$1",[name]);
     return waiterId.rows[0]["id"];
-  //}
+  }
 }
 
   async function get(days) {
@@ -50,13 +50,12 @@ module.exports = function waiterFactory(pool) {
     }
   }
 
-  async function count(shift) {
+ /* async function count(shift) {
     for (const id in shift){
       const selectCount = await pool.query("select count(*) from shift where dayid=$1",[id]);
-      //console.log(selectCount.rows)
       return selectCount.rows
     }
-  }
+  }*/
 
    function color(count) {
     if (count < 3) {
@@ -68,7 +67,6 @@ module.exports = function waiterFactory(pool) {
     if ((count = 3)) {
       return "bg-green";
     }
-   
   }
 
   async function getWaiters() {
@@ -120,7 +118,6 @@ module.exports = function waiterFactory(pool) {
     getDays,
     noName,
     get,
-    count,
     color,
     getWaiterId,
     joinShift,
