@@ -16,7 +16,7 @@
 {{#each waiters}}
 
   <div class="item">
-    <h6>{{this.waiter}}</h6>
+    <h6><a href="/waiters/{{this}}">{{this.waiter}}</a></h6>
   </div>
 {{/each}}
   </td>
@@ -24,17 +24,14 @@
 {{/each}}
   </tbody>
   
-
 </table>
-
-
 
 </form>
 
-<form action="/reset" method="POST">
+<form action="/reset" method="GET">
 
   {{#if messages.reset}}
-  <div class="entry text-success">
+  <div class="alert alert-info">
     <p> {{messages.reset}}</p>
   </div>
   {{/if}}
@@ -43,3 +40,6 @@
 </button>
 
 </form>
+
+<a href="/home">
+<button class="btn btn-dark">Home</button></a>

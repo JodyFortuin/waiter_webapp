@@ -15,7 +15,12 @@ module.exports = function waiterFactory(pool) {
 
 
   async function addWaiter(waiterName) {
+    const waiterValue = await pool.query("select * from waiters where waiter=$1",[waiterName]);
+
+    if(waiterValue.rowCount === 0){
     const INSERT_WAITER = await pool.query("insert into waiters(waiter) values($1)", [waiterName]); 
+    return true
+    } else return false;
   }
 
   async function addShiftsForWaiter(name, day) {
@@ -106,6 +111,18 @@ module.exports = function waiterFactory(pool) {
     return weekdays;
   }
 
+  function pswValidation(password){
+    if(password == "admin123"){
+      return true
+    } return false
+  }
+
+  function userValidation(user){
+    if(user == "Admin"){
+      return true
+    } return false
+  }
+
   async function reset(){
     const DELETE_SHIFT = await pool.query("delete from shift");
     return true;
@@ -121,7 +138,9 @@ module.exports = function waiterFactory(pool) {
     color,
     getWaiterId,
     joinShift,
-    reset
+    reset,
+    pswValidation,
+    userValidation
   };
 };
 

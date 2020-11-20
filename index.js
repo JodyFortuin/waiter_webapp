@@ -40,9 +40,16 @@ app.use(bodyParser.json());
 
 app.get('/', async function (req, res) {
 
-    res.render('index', {
+    res.render('home', {
 
     });
+});
+
+app.get('/home', async function (req, res) {
+
+  res.render('home', {
+
+  });
 });
 
 app.get('/waiters/:nameItem', async function (req, res) {
@@ -56,11 +63,14 @@ app.post('/waiters/:nameItem', async function (req, res) {
   const day = req.body.checkbox;
   const name = req.body.nameItem;
   //req.session.user = name;
+
   if(name){
-  const addWaiter = await waiterFact.addWaiter(name);
+  addWaiter = await waiterFact.addWaiter(name);
   }
 
-  if(name && !day == ""){
+  if (addWaiter == false){
+    req.flash("info", "Waiter has already been entered");
+  } else if (name && !day == ""){
   const addId = await waiterFact.addShiftsForWaiter(name, day);
   req.flash("shift", "Successfully added shifts");
   }
@@ -74,8 +84,6 @@ app.post('/waiters/:nameItem', async function (req, res) {
   } else if (!day) {
     req.flash("info", "No days selected");
   }
-    
- // const count = waiterFact.count(day);
 
     res.render('index', {
          
@@ -87,20 +95,57 @@ app.get('/days', async function (req, res) {
  const day = req.body.checkbox;
  const get = await waiterFact.joinShift();
 
- console.log({get});
-
     res.render('admin', {
        display: get
     });
 });
 
-app.post('/reset', async function (req, res) {
+app.post('/login', async function (req, res) {
+
+ const user = req.body.userLogin;
+ const password = req.body.password;
+
+ var psw = await waiterFact.pswValidation(password);
+ var usr = await waiterFact.userValidation(user);
+
+ console.log({password});
+ console.log({psw});
+
+if(psw == true && usr == true){
+  res.render('admin',{
+
+  });
+}
+
+if(psw == false || usr == false){
+  req.flash("login", "Incorrect credentials");
+
+  res.render('login', {
+
+  });}
+});
+
+app.get('/login', async function (req, res) {
+
+     res.render('login', {
+
+     });
+ });
+
+ app.get('/index', async function (req, res) {
+
+  res.render('index', {
+
+  });
+});
+
+app.get('/reset', async function (req, res) {
 
   const reset = await waiterFact.reset();
   const get = await waiterFact.joinShift();
 
   if (reset){
-    req.flash("reset", "Succesfully cleared database");
+    req.flash("reset", "Succesfully cleared shift schedule");
   }
  
      res.render('admin', {
