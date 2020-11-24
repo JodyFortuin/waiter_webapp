@@ -53,6 +53,7 @@ app.get('/home', async function (req, res) {
 });
 
 app.get('/waiters/:nameItem', async function (req, res) {
+// const name = req.params.nameItem;
 
   res.render('index', {
 
@@ -108,12 +109,14 @@ app.post('/login', async function (req, res) {
  var psw = await waiterFact.pswValidation(password);
  var usr = await waiterFact.userValidation(user);
 
+ const get = await waiterFact.joinShift();
+
  console.log({password});
  console.log({psw});
 
 if(psw == true && usr == true){
   res.render('admin',{
-
+  display:get
   });
 }
 
@@ -127,7 +130,7 @@ if(psw == false || usr == false){
 
 app.get('/login', async function (req, res) {
 
-     res.render('login', {
+  res.render('login', {
 
      });
  });

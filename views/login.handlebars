@@ -6,15 +6,13 @@
   <div class="input-group-prepend">
     <span class="input-group-text" id="">Username</span>
   </div>
-  <input type="text" name="userLogin" class="form-control" required>
-  <p>(Username is Admin)</p>
+  <input type="text" name="userLogin" class="form-control" placeholder="(Username is Admin)" required>
 </div>
 
 <div class="input-group mb-3">
-  <input type="text" name="password" class="form-control" placeholder="Enter administrator password" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+  <input type="text" name="password" class="form-control" placeholder="Enter administrator password (Password is admin123)" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
   <div class="input-group-append">
     <button class="btn btn-outline-secondary" type="submit">Login</button>
-    <p>(Password is admin123)</p>
   </div>
 </div>
 
@@ -25,3 +23,5 @@
   {{/if}}
 
 </form>
+
+<a href="/home">Home</a>

@@ -13,7 +13,6 @@ module.exports = function waiterFactory(pool) {
     return result.rows;
   }
 
-
   async function addWaiter(waiterName) {
     const waiterValue = await pool.query("select * from waiters where waiter=$1",[waiterName]);
 

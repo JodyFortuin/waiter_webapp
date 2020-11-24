@@ -12,6 +12,10 @@
     width:300px;
 }
 
+.home{
+  padding: 5em;
+}
+
 .btn{
   display:flex
 }
