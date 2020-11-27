@@ -25,6 +25,24 @@ describe("Registration Database Unit Test", async function () {
     });
   });
 
+  describe("regex()", async function () {
+    it("should capitalise the waiter name (Jody instead of jody)", function() {
+      
+      let waiterFactory = waiterFact(pool);
+
+      assert.equal("Jody", waiterFactory.regex('jody'));
+      });
+    });
+
+  describe("regex()", async function () {
+  it("should add a waiter using only letters that are entered (Jody instead of $Jody123)", function() {
+    
+    let waiterFactory = waiterFact(pool);
+
+    assert.equal("Jody", waiterFactory.regex('$Jody123'));
+    });
+  });
+
   describe("noName()", async function () {
     it("should be able to check if a name is entered", async function () {
       let waiterFactory = waiterFact(pool);
@@ -47,7 +65,7 @@ describe("Registration Database Unit Test", async function () {
   });
 
   describe("color()", async function () {
-    it("should change column name red when below 3", async function () {
+    it("should change column name orange when below 3", async function () {
       let waiterFactory = waiterFact(pool);
       
       await waiterFactory.addWaiter("John");
@@ -55,7 +73,7 @@ describe("Registration Database Unit Test", async function () {
       await waiterFactory.addShiftsForWaiter("John", [1]);
       await waiterFactory.addShiftsForWaiter("Jack", [1]);
 
-      assert.deepEqual("bg-danger", await waiterFactory.color(2));
+      assert.deepEqual("bg-warning", await waiterFactory.color(2));
     });
   });
 
@@ -75,7 +93,7 @@ describe("Registration Database Unit Test", async function () {
   });
 
   describe("color()", async function () {
-    it("should change column name orange when above 3", async function () {
+    it("should change column name red when above 3", async function () {
       let waiterFactory = waiterFact(pool);
 
       await waiterFactory.addWaiter("Jack");
@@ -87,7 +105,7 @@ describe("Registration Database Unit Test", async function () {
       await waiterFactory.addShiftsForWaiter("James", [1]);
       await waiterFactory.addShiftsForWaiter("Jim", [1]);
 
-      assert.deepEqual("bg-warning", await waiterFactory.color(4));
+      assert.deepEqual("bg-danger", await waiterFactory.color(4));
     });
   });
 });

@@ -1,13 +1,15 @@
 <div class="container">
 <div class="card border-0 shadow my-5">
     <div class="card-body p-5">
-<form action="/waiters/{{this}}" method="POST" class="custom-centered">
+<form action="/waiters/{{user}}" method="POST" class="custom-centered">
 
 <div><p class="text-primary">Waiter booking</p></div>
 
 <div class="form-row">
 <div class="col-md-12 mb-3">
-<input type="text" name="nameItem" placeholder="enter name" class="form-control" id="validationTooltip03">
+  <div><p class="text-secondary">Enter your name in the url above</p></div>
+
+{{!<input type="text" name="nameItem" placeholder="enter name" class="form-control" id="validationTooltip03">}}
      </div>
      </div>
 
@@ -28,6 +30,7 @@
     <p> {{messages.shift}}</p>
   </div>
   {{/if}}
+  
 
 <div class="checks" name="checkbox" id="checkbox">
 <div class="custom-control custom-checkbox">

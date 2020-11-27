@@ -1,5 +1,25 @@
 <form action="/days" method="GET">
 
+<div class="greenKey">
+<p>
+        <button type="button" class="btn btn-success btn-default btn-sm">
+          <span class="glyphicon glyphicon-tasks"></span> Tasks 
+        </button> 3 Waiters booked
+      </p>
+
+      <p>
+        <button type="button" class="btn btn-warning btn-default btn-sm">
+          <span class="glyphicon glyphicon-tasks"></span> Tasks 
+        </button> Less than 3 waiters booked
+      </p>
+
+      <p>
+        <button type="button" class="btn btn-danger btn-default btn-sm">
+          <span class="glyphicon glyphicon-tasks"></span> Tasks 
+        </button> More than 3 waiters booked
+      </p>
+      </div>
+
 <table class="table table-striped table-dark">
 <thead>
   <tr>
@@ -16,7 +36,7 @@
 {{#each waiters}}
 
   <div class="item">
-    <h6><a href="/waiters/{{this}}">{{this.waiter}}</a></h6>
+    <h6><a href="/waiters/{{this.waiter}}">{{this.waiter}}</a></h6>
   </div>
 {{/each}}
   </td>

@@ -45,25 +45,27 @@ app.get('/', async function (req, res) {
     });
 });
 
-app.get('/home', async function (req, res) {
-
-  res.render('home', {
-
-  });
-});
-
-app.get('/waiters/:nameItem', async function (req, res) {
-// const name = req.params.nameItem;
+app.get('/waiters', async function (req, res) {
 
   res.render('index', {
 
   });
 });
 
+app.get('/waiters/:nameItem', async function (req, res) {
+
+  var nameInput = req.params.nameItem;
+
+  res.render('index', {
+    user: nameInput
+  });
+});
+
 app.post('/waiters/:nameItem', async function (req, res) {
   const day = req.body.checkbox;
-  const name = req.body.nameItem;
-  //req.session.user = name;
+  //const nameInput = req.body.nameItem;
+  var nameInput = req.params.nameItem;
+  const name = waiterFact.regex(nameInput);
 
   if(name){
   addWaiter = await waiterFact.addWaiter(name);
@@ -80,14 +82,14 @@ app.post('/waiters/:nameItem', async function (req, res) {
 
   if(noName === true && !day){
     req.flash("info", "Enter name and day")
-  } else if (noName === true) {
+  } /*else if (noName === true) {
     req.flash("info", "No name entered");
-  } else if (!day) {
+  }*/ else if (!day) {
     req.flash("info", "No days selected");
   }
 
     res.render('index', {
-         
+         user: nameInput
     });
 });
 
@@ -97,7 +99,7 @@ app.get('/days', async function (req, res) {
  const get = await waiterFact.joinShift();
 
     res.render('admin', {
-       display: get
+      display: get
     });
 });
 
@@ -116,7 +118,7 @@ app.post('/login', async function (req, res) {
 
 if(psw == true && usr == true){
   res.render('admin',{
-  display:get
+    display:get
   });
 }
 
@@ -135,10 +137,18 @@ app.get('/login', async function (req, res) {
      });
  });
 
- app.get('/index', async function (req, res) {
+app.get('/home', async function (req, res) {
 
-  res.render('index', {
+  res.render('home', {
 
+   });
+ });
+
+app.get('/admin', async function (req, res) {
+  const get = await waiterFact.joinShift();
+
+  res.render('admin', {
+    display:get
   });
 });
 

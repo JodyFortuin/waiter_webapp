@@ -20,6 +20,10 @@
   display:flex
 }
 
+.greenKey{
+  display: flex;
+}
+
 .bg-warning {
   background-color: orange;
   font-weight: bold;

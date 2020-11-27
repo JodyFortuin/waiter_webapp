@@ -1,6 +1,5 @@
 module.exports = function waiterFactory(pool) {
 
-
   async function getSchedule() {
     const SELECT_WAITERS = `select * from waiters
     inner join shift
@@ -54,19 +53,12 @@ module.exports = function waiterFactory(pool) {
     }
   }
 
- /* async function count(shift) {
-    for (const id in shift){
-      const selectCount = await pool.query("select count(*) from shift where dayid=$1",[id]);
-      return selectCount.rows
-    }
-  }*/
-
    function color(count) {
     if (count < 3) {
-      return "bg-danger";
+      return "bg-warning";
     }
     if (count > 3) {
-      return "bg-warning";
+      return "bg-danger";
     }
     if ((count = 3)) {
       return "bg-green";
@@ -122,11 +114,21 @@ module.exports = function waiterFactory(pool) {
     } return false
   }
 
+  function regex(nameInput) {
+    var characters = /[^A-Za-z]/g;
+    if (nameInput !== "") {
+    var newName = nameInput.replace(characters, "")
+    var capital = newName[0].toUpperCase() + newName.slice(1).toLowerCase();
+    return capital;
+ }
+return "";
+}
+
   async function reset(){
     const DELETE_SHIFT = await pool.query("delete from shift");
     return true;
   }
-
+  
   return {
     addWaiter,
     addShiftsForWaiter,
@@ -139,7 +141,8 @@ module.exports = function waiterFactory(pool) {
     joinShift,
     reset,
     pswValidation,
-    userValidation
+    userValidation,
+    regex
   };
 };
 
