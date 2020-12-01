@@ -63,7 +63,7 @@ app.get('/waiters/:nameItem', async function (req, res) {
 
 app.post('/waiters/:nameItem', async function (req, res) {
   const day = req.body.checkbox;
-  //const nameInput = req.body.nameItem;
+
   var nameInput = req.params.nameItem;
   const name = waiterFact.regex(nameInput);
 
@@ -82,9 +82,9 @@ app.post('/waiters/:nameItem', async function (req, res) {
 
   if(noName === true && !day){
     req.flash("info", "Enter name and day")
-  } /*else if (noName === true) {
+  } else if (noName === true) {
     req.flash("info", "No name entered");
-  }*/ else if (!day) {
+  } else if (!day) {
     req.flash("info", "No days selected");
   }
 

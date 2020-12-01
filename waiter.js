@@ -124,6 +124,14 @@ module.exports = function waiterFactory(pool) {
 return "";
 }
 
+async function checkBoxState(waiterName){
+  const waiterValue = await pool.query("select waiter from waiters where waiter=$1",[waiterName]);
+  const allWaiters = await getWaiters();
+  const allDays = await getDays();
+
+
+}
+
   async function reset(){
     const DELETE_SHIFT = await pool.query("delete from shift");
     return true;
@@ -142,7 +150,8 @@ return "";
     reset,
     pswValidation,
     userValidation,
-    regex
+    regex,
+    checkBoxState
   };
 };
 
