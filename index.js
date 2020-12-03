@@ -55,16 +55,19 @@ app.get('/waiters', async function (req, res) {
 app.get('/waiters/:nameItem', async function (req, res) {
 
   var nameInput = req.params.nameItem;
+  var days = await waiterFact.checkBoxState(nameInput)
+console.log(days);
 
   res.render('index', {
-    user: nameInput
+    user: nameInput,
+    days
   });
 });
 
 app.post('/waiters/:nameItem', async function (req, res) {
-  const day = req.body.checkbox;
+  const day = req.body.days;
 
-  var nameInput = req.params.nameItem;
+    var nameInput = req.params.nameItem;
   const name = waiterFact.regex(nameInput);
 
   if(name){

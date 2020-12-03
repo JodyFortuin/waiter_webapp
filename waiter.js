@@ -102,6 +102,7 @@ module.exports = function waiterFactory(pool) {
     return weekdays;
   }
 
+
   function pswValidation(password){
     if(password == "admin123"){
       return true
@@ -126,14 +127,46 @@ return "";
 
 async function checkBoxState(waiterName){
   const waiterValue = await pool.query("select waiter from waiters where waiter=$1",[waiterName]);
-  const allWaiters = await getWaiters();
+
   const allDays = await getDays();
 
+  const waiterDays = await pool.query(`select days.day
+  as chosenDay
+  from days
+  left join shift
+  on days.id = shift.dayid
+  left join waiters
+  on waiters.id = shift.waiter_id
+  where waiters.waiter=$1`,[waiterName]);;
 
+  const waiterSchedule = waiterDays.rows;
+  
+  if (waiterSchedule.rowCount === 0) {
+    return allDays;
+} else {
+  for(days of allDays){
+    for(waiterValue of waiterSchedule){
+      if(waiterValue.chosenDay === days.day) {
+        days.checked = "checked"
+        console.log(days.checked)
+    }
+    }
+}
+}
+/*allDays.forEach(weekdays =>{
+  waiterSchedule.forEach((waiter) => {
+    if(waiter.day === weekdays.day) {
+        weekdays.state = "checked"
+    }
+  })
+  })*/
+
+return allDays
 }
 
   async function reset(){
     const DELETE_SHIFT = await pool.query("delete from shift");
+    const DELETE_NAME = await pool.query("delete from waiters");
     return true;
   }
   

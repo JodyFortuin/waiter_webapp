@@ -31,7 +31,13 @@
   </div>
   {{/if}}
 
-<div class="checks" name="checkbox" id="checkbox">
+  {{#each days}}
+  <input type="checkbox" name="days" class="custom-control-input" value="{{this}}" {{checked}}>
+  <label for="all" class="custom-control-label"> {{this}}</label>
+  {{/each}}
+  </div>
+
+{{!<div class="checks" name="checkbox" id="checkbox">
 <div class="custom-control custom-checkbox">
   <input type="checkbox" class="custom-control-input" id="customCheck1" value="1" name="checkbox">
   <label class="custom-control-label" for="customCheck1"><p class="text-info">Monday</p></label>
@@ -66,7 +72,7 @@
   <input type="checkbox" class="custom-control-input" id="customCheck7" value="7" name="checkbox">
   <label class="custom-control-label" for="customCheck7"><p class="text-info">Sunday</p></label>
 </div>
-</div>
+</div>}}
 
 <button type="submit" name="sub" class="btn btn-primary">Submit
 </button>

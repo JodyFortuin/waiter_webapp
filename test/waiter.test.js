@@ -44,11 +44,20 @@ describe("Registration Database Unit Test", async function () {
   });
 
   describe("noName()", async function () {
-    it("should be able to check if a name is entered", async function () {
+    it("should be able to check if a name is entered (False)", async function () {
       let waiterFactory = waiterFact(pool);
       const INSERT_QUERY = await waiterFactory.addWaiter();
 
       assert.deepEqual(false, await waiterFactory.noName());
+    });
+  });
+
+  describe("noName()", async function () {
+    it("should be able to check if a name is entered (True)", async function () {
+      let waiterFactory = waiterFact(pool);
+      const INSERT_QUERY = await waiterFactory.addWaiter("Jody");
+
+      assert.deepEqual(true, await waiterFactory.noName());
     });
   });
 
